@@ -3308,6 +3308,32 @@ function library:Load(options)
 					callback(toggled)
 				end
 
+				function setToggle(tabtoggle, title, tab, utility, library, mouseover)
+					for _, obj in next, self.tabtoggles do
+						if obj ~= tabtoggle then
+							utility.changeobjecttheme(obj, "Tab Background")
+						end
+					end
+
+					for _, obj in next, self.tabtoggletitles do
+						if obj ~= title then
+							utility.changeobjecttheme(obj, "Disabled Text")
+						end
+					end
+
+					for _, obj in next, self.tabs do
+						if obj ~= tab then
+							obj.Visible = false
+						end
+					end
+
+					tab.Visible = true
+					utility.changeobjecttheme(title, "Text")
+					utility.changeobjecttheme(tabtoggle, "Tab Toggle Background")
+					tabtoggle.Color = mouseover and utility.changecolor(library.theme["Tab Toggle Background"], 3)
+						or utility.changecolor(library.theme["Tab Background"], 3)
+				end
+				
 				toggleclick.MouseButton1Click:Connect(setstate)
 
 				local function set(bool)
