@@ -2213,6 +2213,8 @@ end;
             Parent = DropdownInner;
         });
 
+
+
 		function Funcs:FindDropdown(Idx)
     return self.DropDowns[Idx] 
 end
@@ -2222,6 +2224,16 @@ function Funcs:UpdateDropdownUI(Dropdown)
     uiDropdown:ClearAllItems()
     for _, value in ipairs(Dropdown.Values) do
         uiDropdown:AddItem(value)
+    end
+end
+
+				function Funcs:RefreshDropdown(Idx, newValues)
+    local Dropdown = self:FindDropdown(Idx)  
+    if Dropdown then
+        Dropdown.Values = newValues
+        Dropdown.Value = Dropdown.Multi and {} or newValues[1] or ""
+        
+        self:UpdateDropdownUI(Dropdown)  
     end
 end
 
